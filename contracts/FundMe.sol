@@ -40,7 +40,37 @@ contract FundMe{
         // Now we have to convert (msg.value) which may be in ether to USD
     }
 
-    function withdraw(uint256 amount) private{
+    function withdraw() public{
+        // for(startingIndex ; endingIndex ; increment)
+        uint256 funderIndex;
+
+        for(funderIndex = 0; funderIndex < funders.length; funderIndex++){
+
+            address funder = funders[funderIndex]; // funderIndex = 0 means our first funder
+            fundersAmount[funder] = 0;
+        }
+
+        require(msg.sender == owner, "Only owner can withdraw transactions");
+        // withdraw a whole balance as logic of for loop
+
+        // 3-ways to sending ether 
+        // Transfer
+        payable(msg.sender).transfer(address(this).balance);
+
+        //send
+        bool success = payable(msg.sender).send(address(this).balance);
+        require(success , "Send Failed");
+
+        //call
+        (bool successWithdraw, ) = payable(msg.sender).call{
+            value: address(this).balance
+        }("");
+        require(successWithdraw , "Call Failed");
+        
+    }
+
+    function withdrawSpecificAmount(uint256 amount) public{
+
         require(msg.sender == owner, "Only owner can withdraw transactions");
         payable(msg.sender).transfer(amount);
     }
