@@ -6,30 +6,6 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
-				"stateMutability": "nonpayable",
-				"type": "constructor"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "ethAmount",
-						"type": "uint256"
-					}
-				],
-				"name": "conversion",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -57,32 +33,6 @@
 					}
 				],
 				"name": "fundersAmount",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getPrice",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getVersion",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -163,11 +113,19 @@
 			]
 		},
 		"contracts/FundMe.sol": {
-			"keccak256": "0xb860ed74938218f6df7aa1ab735d755ffe63036a9f77f9d3573f180fb45340d0",
+			"keccak256": "0x1d1f09a8b33c456defe9a30bb30c44349e1e71675677281fdd5d77850f9d5975",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://85329698a19f2fde3e005586010645221cf2da9ba2ad0a1e9accf34905d18f7f",
-				"dweb:/ipfs/QmZeCAFLns6y1rC8jrQDPijn44fR4CPth2vapEV3meeFNU"
+				"bzz-raw://bc5e27b0a8e3d24b3e390f211949621b75841e653512fd818de57968d61e84e0",
+				"dweb:/ipfs/Qmcko7dqxPxwenS4GnnBdyYhF5eZ4mTn7LcbQPNEbGqQqm"
+			]
+		},
+		"contracts/PriceConvertor.sol": {
+			"keccak256": "0xa759d174731504dd17d6397c4363fcc19f6509923199232c45cfa3bc88708129",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3ce0fb9905270cebd4cdc1ff933bb619e124096ae68cdbdc0b820cf3d4ca00f5",
+				"dweb:/ipfs/QmQdGbMCoafCbKtvBEdKRjHxHP6jts3Yw3P6AgLxAoAYtV"
 			]
 		}
 	},
