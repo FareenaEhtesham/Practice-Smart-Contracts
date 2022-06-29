@@ -13,8 +13,8 @@ contract FundMe{
     // call library
     using PriceConvertor for uint256;
 
-    uint256 public minimumUsd = 50;
-    address payable public owner;
+    uint256 public constant minimumUsd = 50 * 10 ** 18;
+    address public owner;
 
     //structure of arrays
     address[] public funders;   // array of all the funders jo transactions[FUND] karaingy
@@ -22,6 +22,11 @@ contract FundMe{
     mapping(keyType => valueType).
     */
     mapping(address => uint256) public fundersAmount;
+
+    constructor(){
+        // this function called immediately when contracts get deployed
+        owner = msg.sender;   // msg.sender contain the address of the person who deploy this cntract 
+    }
 
     function receiveFunds() public payable{
 
@@ -40,7 +45,8 @@ contract FundMe{
         // Now we have to convert (msg.value) which may be in ether to USD
     }
 
-    function withdraw() public{
+    function withdraw() public onlyOwner{
+
         // for(startingIndex ; endingIndex ; increment)
         uint256 funderIndex;
 
@@ -50,7 +56,6 @@ contract FundMe{
             fundersAmount[funder] = 0;
         }
 
-        require(msg.sender == owner, "Only owner can withdraw transactions");
         // withdraw a whole balance as logic of for loop
 
         // 3-ways to sending ether 
@@ -69,10 +74,18 @@ contract FundMe{
         
     }
 
-    function withdrawSpecificAmount(uint256 amount) public{
+    function withdrawSpecificAmount(uint256 amount) public onlyOwner{
 
-        require(msg.sender == owner, "Only owner can withdraw transactions");
         payable(msg.sender).transfer(amount);
+    }
+
+    function totalFunds() public onlyOwner view returns(uint){
+        return address(this).balance;
+    }
+
+    modifier onlyOwner(){
+        require(msg.sender == owner, "Only owner can withdraw transactions");
+        _;
     }
 }
 
