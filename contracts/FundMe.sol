@@ -8,13 +8,15 @@ pragma solidity >=0.4.22 <0.9.0;
 
 import "./PriceConvertor.sol";
 
+error notOwner();
+
 contract FundMe{
 
     // call library
     using PriceConvertor for uint256;
 
-    uint256 public constant minimumUsd = 50 * 10 ** 18;
-    address public owner;
+    uint256 public constant MINIMUM_USD = 50 * 10 ** 18;
+    address public immutable i_owner;
 
     //structure of arrays
     address[] public funders;   // array of all the funders jo transactions[FUND] karaingy
@@ -25,7 +27,7 @@ contract FundMe{
 
     constructor(){
         // this function called immediately when contracts get deployed
-        owner = msg.sender;   // msg.sender contain the address of the person who deploy this cntract 
+        i_owner = msg.sender;   // msg.sender contain the address of the person who deploy this cntract 
     }
 
     function receiveFunds() public payable{
@@ -39,9 +41,9 @@ contract FundMe{
         */
 
         // require is like a check if false so it print The minimum amount of........ 
-        require(msg.value.conversion() >= minimumUsd , "The minimum amount of fund would be >=50$");
+        require(msg.value.conversion() >= MINIMUM_USD , "The minimum amount of fund would be >=50$");
         funders.push(msg.sender);   // msg.sender is the address of whoever calls the function
-        fundersAmount[msg.sender] = msg.value;
+        fundersAmount[msg.sender] += msg.value;
         // Now we have to convert (msg.value) which may be in ether to USD
     }
 
@@ -84,7 +86,14 @@ contract FundMe{
     }
 
     modifier onlyOwner(){
-        require(msg.sender == owner, "Only owner can withdraw transactions");
+        // require(msg.sender == i_owner, "Only owner can withdraw transactions");
+
+        /* Custom errors are more gas efficient as false condition of require statement 
+        saves each string value*/
+
+        if(msg.sender != i_owner){
+            revert notOwner();
+        }
         _;
     }
 }
