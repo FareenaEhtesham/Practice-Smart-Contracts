@@ -96,6 +96,14 @@ contract FundMe{
         }
         _;
     }
+
+    receive() external payable{
+        receiveFunds();
+    }
+
+    fallback() external payable{
+        receiveFunds();
+    }
 }
 
 
@@ -116,5 +124,12 @@ Address
 
 Working with Interfaces gives you an ABI to interact your contract with outside world
 
+1. Enums
+2. Events
+3. Try/Catch
+4. Functions Selector
+5. abi.encode / decode
+6. Hashing
+7. Yul / Assembly
 
 */

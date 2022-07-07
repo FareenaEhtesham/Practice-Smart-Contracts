@@ -9,6 +9,9 @@ contract Receive_Fallback{
     receive function(Special function in blockchain) get triggererd every time 
     when some one send ether without actually calls the function.
 
+    if our call data is blank then receive function triggered
+    if our call data contain an address then fallback function triggered
+
     */
     receive() external payable{
 
